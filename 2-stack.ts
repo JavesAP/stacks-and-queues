@@ -1,3 +1,11 @@
+export type TypeStack<T> = {
+  push(data: T): void
+  pop(): T | null | undefined
+  peek(): T | null
+  isEmpty(): string
+  size(): number
+  print(): void
+}
 // Step 1: Create a Stack class
 // - Define a class named Stack.
 // - Look into the private keyword. Make sure we can initialize a stack of any input type.
@@ -23,6 +31,38 @@
 // Step 6: Implement print method
 // - Create a method to display the stack elements.
 // - Print elements in order, separated by " | " with the top of the stack on the right.
+
+export class Stack<T> implements TypeStack<T> {
+  private items: T[];
+  constructor() {
+    this.items = []
+  }
+  
+  push(data: T) {
+    this.items.push(data)
+  }
+  
+  pop() {
+    return this.items.length ? this.items.pop() : null
+  }
+  
+  peek() {
+    return this.items.length ? this.items[this.items.length - 1] : null
+  }
+  
+  isEmpty() {
+    return this.size() ? "stack is not empty" : "stack is empty"
+  }
+  
+  size() {
+    return this.items.length
+  }
+  
+  print() {
+    if (!this.items.length) console.log("nothing to print")
+    console.log(this.items.join(" | "))
+  }
+}
 
 // Uncomment The Code Below to See If It Works! Feel free to write more code to test and examine the functionality of the stack.
 // const stack = new Stack<number>(); // Create a stack that stores numbers

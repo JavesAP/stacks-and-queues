@@ -1,4 +1,5 @@
 // BE SURE TO IMPORT YOUR STACK CLASS
+import { Stack } from "./2-stack"
 
 // ==============================
 // 1️⃣ Reverse a String Using a Stack
@@ -12,12 +13,43 @@
 // reverseString("") // ""
 // reverseString("abcd") // "dcba"
 
+function reverseString(string: string) {
+  const stack = new Stack()
+  let reversedStr = ''
+  
+  for (const elm of string) {
+    stack.push(elm)
+  }
+  
+  for (let i = 0; i < string.length; i++) {
+    reversedStr += stack.pop()
+  }
+  
+  return reversedStr
+}
+
 // ==============================
 // 2️⃣ Check for Balanced Parentheses
 // ==============================
 // Given a string containing only the characters `()`, `{}`, and `[]`,
 // write a function to determine if the string is valid.
 // A string is valid if brackets are closed in the correct order. Use a stack to track open brackets.
+
+function isValidParentheses(string: string) {
+  const stack = new Stack()
+  const acceptedBrackets = ['()', '[]', '{}', ')(', '][', '}{']
+  
+  for (const bracket of string) {
+    stack.push(bracket)
+  }
+  
+  for (let i = 0; i < string.length; i++) {
+    const pariedBrackets = stack[i] + (stack[string.length - 1 - i])
+    if (!acceptedBrackets.includes(pariedBrackets)) return false
+  }
+  
+  return true
+}
 
 // Example Test Cases:
 // isValidParentheses("({[]})") // true
@@ -63,3 +95,16 @@
 // dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]) // [1, 1, 4, 2, 1, 1, 0, 0]
 // dailyTemperatures([30, 40, 50, 60]) // [1, 1, 1, 0]
 // dailyTemperatures([30, 20, 10]) // [0, 0, 0]
+
+const dailyTemperatures = (arr: number[]): number[] => {
+  const stack = new Stack()
+  const result= Array(arr.length).fill(0);
+  for (let i = 0; i < arr.length; i++) {
+    while (!stack.isEmpty() && arr[stack.peek()!] < arr[i]) {
+      const prevDay = stack.pop()!;
+      result[prevDay] = i - prevDay; 
+    }
+    stack.push(i); 
+  }
+  return result;
+};

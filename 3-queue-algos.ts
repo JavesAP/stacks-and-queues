@@ -1,4 +1,5 @@
 // BE SURE TO IMPORT YOUR QUEUE CLASS
+import { Queue } from "./1-queue";
 
 // ==============================
 // [1] Print the First `N` Numbers in Increasing Order using a Queue
@@ -16,7 +17,19 @@
 // console.log(printNumbers(3)); // Output: [1, 2, 3]
 // console.log(printNumbers(1)); // Output: [1]
 
-function printNumbers(n) {}
+export function printNumbers(n: number) {
+  const queue = new Queue();
+  const arr: number[] = [];
+
+  for (let i = 1; i <= n; i++) {
+    queue.enqueue(i);
+  }
+
+  while(queue.size() > 0) {
+    arr.push(queue.front())
+  }
+  return arr
+}
 
 // ==============================
 // [2] Reverse a Queue
